@@ -1,0 +1,67 @@
+{
+  "name": "@triyanox/next-middleware",
+  "version": "0.0.0",
+  "description": "The cleanest way to protect your Next.js routes with a middleware",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/triyanox/next-middleware.git"
+  },
+  "bugs": {
+    "url": "https://github.com/triyanox/next-middleware/issues"
+  },
+  "homepage": "https://github.com/triyanox/next-middleware",
+  "main": "dist/index.js",
+  "author": {
+    "name": "Mohamed Achaq",
+    "email": "hi@achaq.dev",
+    "url": "https://achaq.dev"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "lint": "eslint --ext .ts,.tsx src",
+    "build": "tsup src/index.ts --dts",
+    "changeset": "changeset",
+    "release": "pnpm build && changeset publish",
+    "version": "changeset version"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
+    "eslint": "^9.1.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "next": "^14.2.3",
+    "prettier": "^3.2.5",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "keywords": [
+    "next",
+    "next.js",
+    "middleware",
+    "auth",
+    "routes-protection",
+    "protected-routes",
+    "next-middleware",
+    "acl"
+  ]
+}
