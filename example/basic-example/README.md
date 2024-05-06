@@ -1,1 +1,0 @@
-This is an a basic example to showcase the use of `@triyanox/next-middleware` along side `@triyanox/next-routes` to protect Next.js routes.
