@@ -1,6 +1,6 @@
 {
   "name": "@triyanox/next-middleware",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The cleanest way to protect your Next.js routes with a middleware",
   "license": "MIT",
   "publishConfig": {
@@ -64,7 +64,7 @@
     "acl"
   ],
   "dependencies": {
-    "@triyanox/next-middleware": "^0.0.1",
+    "@triyanox/next-middleware": "^0.0.2",
     "@triyanox/next-routes": "^0.1.5"
   }
 }
