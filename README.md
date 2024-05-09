@@ -111,9 +111,17 @@ It also takes an object with the following properties:
 Here's an example of constructing the middleware:
 
 ```ts
+import env from "@/env";
+import { NextResponse } from "next/server";
+import { isNotLoggedIn, isLoggedIn, isAdmin, isOwnWorkspace } from "@/lib/rules";
+import { routes } from "@/lib/link$";
+import type { Data } from "@/types";
+import Middleware from "@triyanox/next-middleware";
+
 const middleware = new Middleware<typeof routes, Data>({
   fetch: async (req) => {
     // Fetch and return the data for route checks
+    // call an API or a serverless function/db to fetch the data (note that the middleware file is not running on a node.js environment so you can't use things like prisma, mongoose, etc. directly in my case I make an API call to fetch the data)
   },
   rules: {
     "/login": [isNotLoggedIn],
@@ -123,6 +131,11 @@ const middleware = new Middleware<typeof routes, Data>({
   authPaths: ["/login", "/dashboard"],
   onError: async (req) => {
     // Handle errors and redirects
+    const path = new URL(req.url).pathname;
+    if (path === "/login") {
+      return NextResponse.next();
+    }
+    return NextResponse.redirect(env.NEXT_PUBLIC_URL + "/login");
   },
 });
 ```
