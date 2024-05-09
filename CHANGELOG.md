@@ -1,5 +1,15 @@
 # @triyanox/next-middleware
 
+## 0.1.0
+
+### Minor Changes
+
+- Release the first minor version
+
+### Patch Changes
+
+- 2413f32: Patch \_\_dirname
+
 ## 0.0.4
 
 ### Patch Changes
