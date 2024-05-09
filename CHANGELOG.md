@@ -1,5 +1,11 @@
 # @triyanox/next-middleware
 
+## 0.1.2
+
+### Patch Changes
+
+- Update the readme
+
 ## 0.1.1
 
 ### Patch Changes
