@@ -14,7 +14,6 @@
     "url": "https://github.com/triyanox/next-middleware/issues"
   },
   "homepage": "https://github.com/triyanox/next-middleware",
-  "main": "dist/index.js",
   "author": {
     "name": "Mohamed Achaq",
     "email": "hi@achaq.dev",
@@ -27,6 +26,9 @@
     "release": "pnpm build && changeset publish",
     "version": "changeset version"
   },
+  "module": "dist/index.js",
+  "main": "dist/index.cjs",
+  "typings": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -51,7 +53,8 @@
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "next" : "^14.2.3"
   },
   "keywords": [
     "next",
