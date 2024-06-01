@@ -33,7 +33,7 @@ type ParamsObject<R extends string> =
 type RuleFunction<
   T,
   RS extends Routes,
-  R extends keyof RS & string = keyof RS & string,
+  R extends Path<keyof RS & string> = keyof RS & string,
 > = (options: {
   data: T;
   path: R;

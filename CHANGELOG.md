@@ -1,5 +1,11 @@
 # @triyanox/next-middleware
 
+## 0.1.3
+
+### Patch Changes
+
+- fix the `Path<T>` for `RuleFunction`
+
 ## 0.1.2
 
 ### Patch Changes
