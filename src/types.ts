@@ -1,12 +1,15 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, NextFetchEvent } from 'next/server';
 
 type Path<R extends string> = R | (R extends '/' ? `${R}*` : `${R}/*`);
-
 /**
  * The type of the routes object
  */
-type Routes = Record<string, { path: string }>;
-
+type Routes = Record<
+  string,
+  {
+    path: string;
+  }
+>;
 /**
  * Extracts the parameters from a dynamic path
  */
@@ -15,18 +18,15 @@ type ExtractParams<R extends string> = string extends R
   : R extends `${infer _Start}/[${infer Param}]${infer _Rest}`
     ? [Param, ...ExtractParams<_Rest>]
     : [];
-
 /**
  * Checks if a path has parameters
  */
 type HasParams<R extends string> = ExtractParams<R> extends [] ? false : true;
-
 /**
  * Extracts the parameters from a dynamic path if it has any
  */
 type ParamsObject<R extends string> =
   HasParams<R> extends true ? Record<ExtractParams<R>[number], string> : never;
-
 type RedirectOptions<Route extends string> =
   ParamsObject<Route> extends never
     ?
@@ -58,14 +58,12 @@ type RuleFunction<
     options?: RedirectOptions<keyof RS & string>,
   ) => void;
 }) => Promise<void> | void;
-
 /**
  * Authorization rules for each path
  */
 type AuthRules<T, RS extends Routes, R extends keyof RS & string> = Partial<
-  Record<Path<R>, RuleFunction<T, RS, R>[]>
+  Record<Path<keyof RS & string>, RuleFunction<T, RS, R>[]>
 >;
-
 type BaseOptions<R extends Routes, T> = {
   /**
    * Function to fetch data so that it can be used in the authorization rules
@@ -74,7 +72,7 @@ type BaseOptions<R extends Routes, T> = {
   /**
    * Authorization rules for each path
    */
-  rules: AuthRules<T, R, keyof R & string>;
+  rules: AuthRules<T, R, any>;
   /**
    * Paths that requiring authentication
    * Those paths will be the root paths of all the existing paths
@@ -85,7 +83,6 @@ type BaseOptions<R extends Routes, T> = {
    */
   onError?: (req: NextRequest) => Promise<NextResponse> | NextResponse;
 };
-
 type MiddlewareOptions<R extends Routes, T> = BaseOptions<R, T>;
 
 export type {

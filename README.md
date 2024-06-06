@@ -80,7 +80,7 @@ const isAdmin: RuleFunction<Data, typeof routes> = ({ data, next, redirect }) =>
   }
 };
 
-const isOwnWorkspace: RuleFunction<Data, typeof routes, '/dashboard/workspaces/[workspaceId]/*'> = ({
+const isOwnWorkspace: RuleFunction<Data, typeof routes, '/dashboard/workspaces/[workspaceId]'> = ({
   data,
   next,
   redirect,
