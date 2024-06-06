@@ -8,6 +8,7 @@ import {
   Path,
   RuleFunction,
   Routes,
+  RedirectOptions,
 } from './types';
 
 /**
@@ -118,8 +119,33 @@ import {
         nextCalled = true;
         return undefined;
       };
-      const redirect = (path: keyof R & string) => {
+      const redirect = (
+        path: keyof R & string,
+        options?: RedirectOptions<keyof R & string>,
+      ) => {
         redirectPath = path;
+        if (options) {
+          if ('params' in options) {
+            const params = options.params;
+            const pathParts = path.split('/');
+            const newPathParts = pathParts.map((part) => {
+              if (part.startsWith('[') && part.endsWith(']')) {
+                const key = part.slice(1, -1);
+                return params[key as keyof typeof params];
+              }
+              return part;
+            });
+            const newPath = newPathParts.join('/');
+            redirectPath = newPath;
+          }
+          if (options.query) {
+            const searchParams = new URLSearchParams(options.query);
+            redirectPath += `?${searchParams.toString()}`;
+          }
+          if (options.hash) {
+            redirectPath += `#${options.hash}`;
+          }
+        }
       };
 
       for (const rule of rules) {

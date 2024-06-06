@@ -27,6 +27,20 @@ type HasParams<R extends string> = ExtractParams<R> extends [] ? false : true;
  */
 type ParamsObject<R extends string> =
   HasParams<R> extends true ? Record<ExtractParams<R>[number], string> : never;
+type RedirectOptions<Route extends string> =
+  ParamsObject<Route> extends never
+    ?
+        | {
+            query?: Record<string, string>;
+            hash?: string;
+          }
+        | undefined
+    : {
+        query?: Record<string, string>;
+        hash?: string;
+        params: ParamsObject<Route>;
+      };
+
 /**
  * This is the type of the function that will be used to define the rules for each path
  */
@@ -39,7 +53,10 @@ type RuleFunction<
   path: R;
   params: ParamsObject<R>;
   next: () => void;
-  redirect: (path: keyof RS & string) => void;
+  redirect: (
+    path: keyof RS & string,
+    options?: RedirectOptions<keyof RS & string>,
+  ) => void;
 }) => Promise<void> | void;
 /**
  * Authorization rules for each path
@@ -77,4 +94,5 @@ export type {
   BaseOptions,
   ExtractParams,
   Routes,
+  RedirectOptions,
 };

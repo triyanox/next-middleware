@@ -1,5 +1,11 @@
 # @triyanox/next-middleware
 
+## 0.1.5
+
+### Patch Changes
+
+- enhance the `redirect` fn
+
 ## 0.1.4
 
 ### Patch Changes
